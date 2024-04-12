@@ -23,13 +23,13 @@ public class Orders {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name = "order_id")
-	private Long orderId;
+//	@Column(name = "order_id")
+//	private Long orderId;
 	
 	@ManyToOne
 	private User user;
 	
-	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "order")
 	private List<OrderItem> orderItems = new ArrayList<>();
 	
 	private LocalDateTime orderDate;
@@ -58,13 +58,13 @@ public class Orders {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Orders(Long id, Long orderId, User user, List<OrderItem> orderItems, LocalDateTime orderDate,
+	public Orders(Long id,  User user, List<OrderItem> orderItems, LocalDateTime orderDate,
 			LocalDateTime deliveryDate, Address shippingAddress, PaymentDetails paymentDetails, double totalPrice,
 			Integer totalDiscountedPrice, Integer discount, String orderStatus, int totalItem,
 			LocalDateTime createdAt) {
 		super();
 		this.id = id;
-		this.orderId = orderId;
+//		this.orderId = orderId;
 		this.user = user;
 		this.orderItems = orderItems;
 		this.orderDate = orderDate;
@@ -83,9 +83,9 @@ public class Orders {
 		return id;
 	}
 
-	public Long getOrderId() {
-		return orderId;
-	}
+//	public Long getOrderId() {
+//		return orderId;
+//	}
 
 	public User getUser() {
 		return user;
@@ -139,9 +139,9 @@ public class Orders {
 		this.id = id;
 	}
 
-	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
-	}
+//	public void setOrderId(Long orderId) {
+//		this.orderId = orderId;
+//	}
 
 	public void setUser(User user) {
 		this.user = user;

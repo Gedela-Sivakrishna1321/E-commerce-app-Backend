@@ -129,8 +129,8 @@ public class ProductServiceImplementation implements ProductService {
 
 	@Override
 	public List<Product> findProductByCategory(String category) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Product> productsByCategory = productRepository.findProductsByCategory(category);
+		return productsByCategory;
 	}
 
 	@Override

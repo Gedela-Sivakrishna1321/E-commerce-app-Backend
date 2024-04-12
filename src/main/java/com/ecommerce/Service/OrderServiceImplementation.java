@@ -43,16 +43,34 @@ public class OrderServiceImplementation implements OrderService {
 	@Autowired
 	private OrderItemRepository orderItemRepository;
 	
+	@Autowired
+	private CartRepository cartRepository;
+	
+	
 	@Override
 	public Orders createOrder(User user, Address shippingAddress) throws UserException {
 		
 		shippingAddress.setUser(user);
+//		System.out.println("Duplicate shipping address is trying to get saved to database");
+//		addressRepository.findById(null)
+		boolean foundAddress = false;
+		for(Address address : user.getAddress()) {
+			List<Address> addressExist = addressRepository.isAddressExist(address.getFirstName(), address.getLastName(), address.getStreetAddress(), address.getCity(), address.getState(), address.getZipCode(), address.getMobile());
+			if(addressExist.size() > 0) {
+				foundAddress = true;
+				break;
+			}
+		}
+//		System.out.println(shippingAddress.toString());
 		Address address = addressRepository.save(shippingAddress);
-		user.getAddress().add(address);
-		userRepository.save(user);
+		if(!foundAddress) {
+			user.getAddress().add(address);
+			userRepository.save(user);
+		}
+		
 		
 		Cart cart = cartService.findUserCart(user.getId());
-		List<OrderItem> orderItems = new ArrayList();
+		ArrayList<OrderItem> orderItems = new ArrayList<>();
 		
 		for(CartItem Item : cart.getCartItems()) {
 			
@@ -78,7 +96,7 @@ public class OrderServiceImplementation implements OrderService {
 		createdOrder.setTotalDiscountedPrice(cart.getTotalDiscountedPrice());
 		createdOrder.setDiscount(cart.getDiscount());
 		createdOrder.setTotalItem(cart.getTotalItem());
-		createdOrder.setShippingAddress(address);
+		createdOrder.setShippingAddress(shippingAddress);
 		createdOrder.setOrderDate(LocalDateTime.now());
 		createdOrder.setOrderStatus("PENDING");
 		createdOrder.getPaymentDetails().setStatus("PENDING");
@@ -91,6 +109,14 @@ public class OrderServiceImplementation implements OrderService {
 			item.setOrder(savedOrder);
 			orderItemRepository.save(item);
 		}
+		
+		// Empty the cart once the order got placed
+		cart.getCartItems().clear();
+		cart.setTotalPrice(0);
+		cart.setTotalItem(0);
+		cart.setTotalDiscountedPrice(0);
+		cart.setDiscount(0);
+		cartRepository.save(cart);
 		
 		return savedOrder;
 	}
@@ -167,6 +193,12 @@ public class OrderServiceImplementation implements OrderService {
 		
 		ordersRepository.deleteById(orderId);
 		
+	}
+
+	@Override
+	public List<Orders> findAllOrders() {
+		// TODO Auto-generated method stub
+		return ordersRepository.findAll();
 	}
 
 //	@Override

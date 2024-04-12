@@ -51,9 +51,11 @@ public class PaymentController {
 		Orders order = orderService.findOrderById(orderId);
 		
 		try {
-			
+			System.out.println(apiKey);
+			System.out.println(apiSecret);
+			// check 1
 			RazorpayClient razorpay = new RazorpayClient(apiKey, apiSecret);
-			
+			//check 2
 			JSONObject paymentLinkRequest = new JSONObject();
 			
 			paymentLinkRequest.put("amount", order.getTotalPrice() * 100);

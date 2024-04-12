@@ -51,10 +51,10 @@ public class Product {
 	@Column(name = "image_url")
 	private String imageUrl;
 	
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "product", orphanRemoval = true)
 	private List<Rating> ratings = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "product", orphanRemoval = true)
 	private List<Review> reviews = new ArrayList<>();
 	
 	@Column(name = "num_ratings")

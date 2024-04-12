@@ -36,7 +36,7 @@ public class User {
 	
 	private String mobile;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user")
 	private List<Address> address = new ArrayList<>();
 	
 	@Embedded
@@ -44,11 +44,11 @@ public class User {
 	@CollectionTable(name = "payment_information", joinColumns = @JoinColumn(name = "user_id" ))
 	private List<PaymentInformation> paymentInformations = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<Rating> ratings = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user")
 	@JsonIgnore
 	private List<Review> reviews = new ArrayList<>();
 	

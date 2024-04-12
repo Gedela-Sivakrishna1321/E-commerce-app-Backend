@@ -1,5 +1,6 @@
 package com.ecommerce.Service;
 
+import org.hibernate.query.NativeQuery.ReturnableResultNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,9 +39,12 @@ public class CartServiceImplementation implements CartService {
 		Cart cart = cartRepository.findCartByUserId(userId);
 		Product product = productService.findProductById(req.getProductId());
 		
+		System.out.println("C H E C K - 2");
 		CartItem isCartItemPresent = cartItemService.isCartItemExist(cart, product, req.getSize(), userId);
+		System.out.println("C H E C K - 4");
 		
 		if(isCartItemPresent == null) {
+			System.out.println(" C H E C K _ 5");
 			CartItem cartItem = new CartItem();
 			cartItem.setProduct(product);
 			cartItem.setCart(cart);
@@ -54,9 +58,14 @@ public class CartServiceImplementation implements CartService {
 			CartItem createdCartItem = cartItemService.createCartItem(cartItem);
 			cart.getCartItems().add(createdCartItem);
 		
+			System.out.println("Item Added To Cart Successfully .........");
+			
+			return "Item Added To Cart";
 		}
 		
-		return "Item Added To Cart";
+		System.out.println(" C H E C K - 6");
+		return "Item Already Exist in the cart";
+		
 	}
 
 	@Override
@@ -86,7 +95,14 @@ public class CartServiceImplementation implements CartService {
 			cart.setTotalItem(totalItem);
 			cart.setTotalPrice(totalPrice);
 			cart.setTotalDiscountedPrice(totalDiscountedPrice);
-			cart.setDiscount(totalPrice - totalDiscountedPrice ); 
+			int discountAmount = (totalPrice - totalDiscountedPrice);
+			double discount = ((double)discountAmount / totalPrice) * 100;
+//			System.out.println(" D IS C OUNT - " + discount);
+//			System.out.println("Total Price - " + totalPrice);
+//			System.out.println("Total Discounted Price " + totalDiscountedPrice);
+//			System.out.println("Discount amount - " + discountAmount);
+//			System.out.println("Discount Percentage - " + discount );
+			cart.setDiscount((int)discount); 
 			
 		}
 		

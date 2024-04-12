@@ -22,11 +22,11 @@ public class OrderItem {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JsonIgnore
 	private Orders order;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Product product;
 	
 	private String size;

@@ -49,5 +49,15 @@ public class ProductController {
 		
 		return new ResponseEntity<Product>(product, HttpStatus.ACCEPTED);
 	}
+	
+	@GetMapping("/products/{category}")
+	public ResponseEntity<List<Product>> findProductsByCategory(@PathVariable String category) {
+		
+		List<Product> productByCategory = productService.findProductByCategory(category);
+		
+		System.out.println("Successfully fetched the Products By Category");
+		
+		return new ResponseEntity<List<Product>>(productByCategory, HttpStatus.OK);
+	}
 
 }

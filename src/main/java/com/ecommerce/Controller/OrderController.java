@@ -39,7 +39,7 @@ public class OrderController {
 		User user = userService.findUserProfileByJwt(jwt);
 		
 		Orders order = orderService.createOrder(user, shippingAddress);
-		System.out.println("Order - " + order);
+		System.out.println("Your order got placed ");
 		return new ResponseEntity<Orders>(order, HttpStatus.CREATED);
 	}
 	
@@ -62,5 +62,13 @@ public class OrderController {
 		Orders order = orderService.findOrderById(id);
 		
 		return new ResponseEntity<Orders>(order, HttpStatus.OK);
+	}
+	
+	@GetMapping("/all")
+	public ResponseEntity<List<Orders>> findAllOrdersHandler() {
+		
+		List<Orders> allOrders = orderService.findAllOrders();
+		
+		return new ResponseEntity<List<Orders>>(allOrders, HttpStatus.OK);
 	}
 }

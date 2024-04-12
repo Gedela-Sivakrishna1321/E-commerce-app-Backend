@@ -49,11 +49,11 @@ public class CartController {
 			@RequestHeader("Authorization") String jwt) throws UserException, ProductException {
 		
 		User user = userService.findUserProfileByJwt(jwt);
-		System.out.println("Hello -- >");
-		cartService.addCartItem(user.getId(), req);
+		System.out.println(" C H E C K - 1");
+		String msg = cartService.addCartItem(user.getId(), req);
 		
 		ApiResponse response = new ApiResponse();
-		response.setMessage("Item Added to cart successfully");
+		response.setMessage(msg);
 		
 		return new ResponseEntity<ApiResponse>(response, HttpStatus.OK);
 	}

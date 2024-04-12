@@ -8,18 +8,18 @@ public class AddItemRequest {
 	
 	private int quantity;
 	
-	private Integer price;
+//	private Integer price;
 	
 	public AddItemRequest() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AddItemRequest(Long productId, String size, int quantity, Integer price) {
+	public AddItemRequest(Long productId, String size, int quantity) {
 		super();
 		this.productId = productId;
 		this.size = size;
 		this.quantity = quantity;
-		this.price = price;
+//		this.price = price;
 	}
 
 	public Long getProductId() {
@@ -34,9 +34,9 @@ public class AddItemRequest {
 		return quantity;
 	}
 
-	public Integer getPrice() {
-		return price;
-	}
+//	public Integer getPrice() {
+//		return price;
+//	}
 
 	public void setProductId(Long productId) {
 		this.productId = productId;
@@ -50,9 +50,9 @@ public class AddItemRequest {
 		this.quantity = quantity;
 	}
 
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
+//	public void setPrice(Integer price) {
+//		this.price = price;
+//	}
 	
 	
 

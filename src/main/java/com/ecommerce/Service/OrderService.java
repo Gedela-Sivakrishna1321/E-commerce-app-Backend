@@ -31,5 +31,7 @@ public interface OrderService {
 	public List<Orders> getAllOrders();
 	
 	public void deleteOrder(Long orderId) throws OrderException;
+	
+	public List<Orders> findAllOrders();
 
 }
